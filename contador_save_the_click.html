@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cuenta regresiva | Save The Click</title>
+<style>
+:root{--bg:#f7f5ef;--green:#646c52;--muted:#88887e}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);font-family:Georgia,'Times New Roman',serif}main{width:100%;padding:15px 14px 12px;text-align:center}h1{margin:0 0 12px;font-family:Arial,sans-serif;font-size:11px;letter-spacing:2px;font-weight:400;color:var(--green)}.counter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:680px;margin:auto}.num{color:var(--green);font-size:clamp(26px,5vw,45px);line-height:1.05;font-variant-numeric:tabular-nums}.label{margin-top:7px;color:var(--muted);font:10px Arial,sans-serif;letter-spacing:1.3px}.done{color:var(--green);font-size:18px;margin:18px 0}@media(max-width:420px){main{padding:13px 5px}.num{font-size:27px}.label{font-size:9px;letter-spacing:.5px}}
+</style>
+</head>
+<body>
+<main aria-label="Cuenta regresiva para el evento">
+<h1>FALTAN PARA NUESTRO GRAN DÍA</h1>
+<div class="counter" id="counter" aria-live="off">
+<div><div class="num" id="days">—</div><div class="label">DÍAS</div></div>
+<div><div class="num" id="hours">—</div><div class="label">HORAS</div></div>
+<div><div class="num" id="minutes">—</div><div class="label">MINUTOS</div></div>
+<div><div class="num" id="seconds">—</div><div class="label">SEGUNDOS</div></div>
+</div>
+<div class="done" id="done" hidden>¡Llegó nuestro gran día!</div>
+</main>
+<script>
+// Monterrey observes UTC-06:00 on this event date.
+const target = Date.parse('2027-05-15T17:00:00-06:00');
+const ids=['days','hours','minutes','seconds'];
+function update(){let left=Math.max(0,Math.ceil((target-Date.now())/1000));if(left===0){document.getElementById('counter').hidden=true;document.getElementById('done').hidden=false;return;}const d=Math.floor(left/86400);left%=86400;const h=Math.floor(left/3600);left%=3600;const m=Math.floor(left/60);const s=left%60;[String(d),String(h).padStart(2,'0'),String(m).padStart(2,'0'),String(s).padStart(2,'0')].forEach((v,i)=>document.getElementById(ids[i]).textContent=v)}update();setInterval(update,1000);
+</script>
+</body>
+</html>
